@@ -52,7 +52,7 @@ export default function Welcome3DFace() {
       <div style={{ width: 340, height: 340 }}>
         <Canvas camera={{ position: [0, 0, 10], fov: 50 }}>
           <ambientLight intensity={0.7} />
-          <directionalLight position={[5, 5, 5]} intensity={1} />
+          <directionalLight position={[5, 5, 5]} intensity={2.5} />
           <Character mouse={mouse} />
         </Canvas>
       </div>
