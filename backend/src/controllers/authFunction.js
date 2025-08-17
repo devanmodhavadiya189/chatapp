@@ -69,7 +69,11 @@ const logout = (req, res) => {
     {
         res.cookie("token","This_website_is_built_by_Devan_R_Modhavadiya_For_Testing_Learning_Purpose",
         {
-            maxAge: 0
+            maxAge: 0,
+            httpOnly: true,
+            secure: true,
+            sameSite: "None",
+            path: "/"
         });
         res.status(200).json(
             {
