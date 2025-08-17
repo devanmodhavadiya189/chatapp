@@ -6,7 +6,7 @@ import { Box3, Vector3 } from 'three';
 function Character({ mouse }) {
   const group = useRef();
   // const { scene } = useGLTF('/src/assets/smile1.glb');
-    const { scene } = useGLTF('/smile1.glb');
+    const { scene } = useGLTF('/smile1this.glb');
 
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function Character({ mouse }) {
     }
   });
 
-  return <primitive ref={group} object={scene} scale={4} />;
+  return <primitive ref={group} object={scene} scale={9} />;
 }
 
 export default function Welcome3DFace() {
