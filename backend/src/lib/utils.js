@@ -9,11 +9,11 @@ const gentoken = (userid, res)=>
 
   res.cookie("token", token, {
   httpOnly: true,
-  // secure: true, 
-  // sameSite: "None", 
-  path: "/", 
-  // domain: ".onrender.com" // Use your exact backend domain
+  secure: true,
+  sameSite: "None",
+  path: "/"
 })
+
 
 }
 
