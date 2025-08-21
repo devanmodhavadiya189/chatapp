@@ -112,3 +112,11 @@ npm run preview
 * node\_env
 * client\_url
 * frontend\_url
+
+### To test frontend and backend 
+
+```bash
+pytest -v frontendtest.py
+pytest -v backendtest.py
+
+```
