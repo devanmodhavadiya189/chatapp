@@ -123,15 +123,14 @@ export default function MessageBubble({ message, isOwnMessage, senderName }) {
             <img 
               src={url} 
               alt={message.file.filename}
-              className="max-w-sm w-full h-auto object-cover"
+              className="w-full max-w-sm h-auto object-cover max-w-[90vw] sm:max-w-sm"
               onError={(e) => {
                 e.target.style.display = 'none';
                 e.target.nextSibling.style.display = 'block';
               }}
             />
             <div 
-              className="hidden max-w-sm rounded-2xl shadow-md bg-sky-50 border border-sky-200 p-4 text-center"
-              style={{ display: 'none' }}
+              className="hidden w-full max-w-sm rounded-2xl shadow-md bg-sky-50 border border-sky-200 p-4 text-center max-w-[90vw] sm:max-w-sm"
             >
               <p className="text-sky-700 font-medium">Failed to load image</p>
               <a 
@@ -151,10 +150,10 @@ export default function MessageBubble({ message, isOwnMessage, senderName }) {
       const isVideo = filename.match(/\.(mp4|webm|ogg)$/i) || mimetype.startsWith('video/');
       if (isVideo) {
         return (
-          <div className="max-w-xs rounded-lg shadow-md bg-blue-50 p-2">
+          <div className="w-full max-w-xs rounded-lg shadow-md bg-blue-50 p-2 max-w-[90vw] sm:max-w-xs">
             <video 
               controls 
-              className="w-full rounded"
+              className="w-full rounded max-w-[90vw] sm:max-w-xs"
               preload="metadata"
             >
               <source src={url} type={mimetype} />
@@ -203,7 +202,7 @@ export default function MessageBubble({ message, isOwnMessage, senderName }) {
 
     // Text messages - return just the text, styling will be handled by parent
     return (
-      <span className="leading-relaxed">
+      <span className="leading-relaxed break-words break-all whitespace-pre-line w-full">
         {message.text || message.content}
       </span>
     );

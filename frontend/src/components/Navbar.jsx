@@ -8,8 +8,8 @@ export default function Navbar() {
 
   return (
     <header className="nav-sky w-full sticky top-0 z-50">
-      <div className="container-sky">
-        <nav className="flex items-center justify-between h-16">
+      <div className="container-sky px-2 sm:px-0">
+        <nav className="flex flex-wrap items-center justify-between h-16 min-h-[56px]">
           {/* Brand Identity */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-3 group">

@@ -33,7 +33,7 @@ export default function Sidebar({ onShowProfile, onShowAbout }) {
   };
 
   return (
-    <div className="w-80 bg-white border-r border-sky-200 flex flex-col h-full">
+    <div className="w-full sm:w-80 bg-white border-r border-sky-200 flex flex-col h-full max-h-screen sm:max-h-full">
       {/* Header */}
       <div className="p-4 bg-sky-gradient text-white">
         <div className="flex items-center justify-between">
@@ -111,8 +111,8 @@ export default function Sidebar({ onShowProfile, onShowAbout }) {
         </div>
       </div>
 
-      {/* Users List */}
-      <div className="flex-1 overflow-y-auto">
+  {/* Users List */}
+  <div className="flex-1 min-h-0 overflow-y-auto">
         {filteredUsers.length === 0 ? (
           <div className="p-8 text-center">
             <MessageCircle className="mx-auto mb-4 text-sky-primary" size={48} />

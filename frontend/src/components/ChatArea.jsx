@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useChat } from '../context/ChatContext';
 import { useAuth } from '../context/AuthContext';
-import { Send, Paperclip, Phone, Video, MoreVertical, File, X, Smile } from 'lucide-react';
+import { Menu, Paperclip, Phone, Video, MoreVertical, File, X, Smile, Send } from 'lucide-react';
 import image1 from '../assets/image1.jpg';
+
 import Welcome3DFace from './Welcome3DFace';
+import Sidebar from './Sidebar';
 
 import MessageBubble from './MessageBubble';
 import EmojiPicker from 'emoji-picker-react';
@@ -46,7 +48,7 @@ async function compressImage(file, maxSizeMB = 10) {
   });
 }
 
-export default function ChatArea() {
+export default function ChatArea({ onOpenSidebar }) {
   // Refs
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -262,11 +264,17 @@ export default function ChatArea() {
 
   if (!activeChat) {
     return (
-      <div className="flex-1 flex items-center justify-center">
-        <div className="text-center">
-          <Welcome3DFace />
-          <h3 className="text-xl font-semibold text-sky-deep mb-2">Welcome to SamVad</h3>
-          <p className="text-neutral-500">Select a conversation to start messaging</p>
+      <div className="flex-1 flex flex-col md:items-center md:justify-center">
+        {/* Show Sidebar (user list) on mobile only */}
+        <div className="block md:hidden border-b border-sky-100">
+          <Sidebar />
+        </div>
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <Welcome3DFace />
+            <h3 className="text-xl font-semibold text-sky-deep mb-2">Welcome to SamVad</h3>
+            <p className="text-neutral-500">Select a conversation to start messaging</p>
+          </div>
         </div>
       </div>
     );
@@ -322,7 +330,7 @@ function Logo3DTilt() {
 }
 
   return (
-    <div className="flex-1 flex flex-col h-full min-h-0">
+  <div className="h-full w-full flex flex-col min-h-0">
       {/* Modals */}
       <ContactInfoModal 
         show={showContactInfo} 
@@ -343,73 +351,84 @@ function Logo3DTilt() {
         </div>
       )}
 
-      {/* Chat Header */}
-      <div className="bg-white border-b border-sky-200 p-4 flex-shrink-0">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="relative">
-              <div className="w-10 h-10 bg-gradient-to-br from-sky-400 to-sky-600 rounded-full flex items-center justify-center text-white font-bold shadow-md border-2 border-sky-200">
-                {activeUser?.profilephoto ? (
-                  <img 
-                    src={activeUser.profilephoto} 
-                    alt={activeUser.fullname}
-                    className="w-8 h-8 rounded-full object-cover" 
-                  />
-                ) : (
-                  <span className="text-xs">{getInitials(activeUser?.fullname || 'User')}</span>
-                )}
-              </div>
-            </div>
-            <div>
-              <h3 className="font-semibold text-sky-deep" data-testid="text-active-user-name">
-                {activeUser?.fullname}
-              </h3>
-            </div>
-          </div>
-          <div className="flex space-x-2">
-            <button 
-              className="p-2 hover:bg-sky-50 rounded-lg transition-colors"
-              data-testid="button-voice-call"
-            >
-              <Phone className="text-sky-primary" size={18} />
-            </button>
-            <button 
-              className="p-2 hover:bg-sky-50 rounded-lg transition-colors"
-              data-testid="button-video-call"
-            >
-              <Video className="text-sky-primary" size={18} />
-            </button>
-            <div className="relative">
-              <button
-                className="p-2 hover:bg-sky-50 rounded-lg transition-colors"
-                data-testid="button-more-options"
-                onClick={() => setShowMenu((v) => !v)}
-              >
-                <MoreVertical className="text-sky-primary" size={18} />
-              </button>
-              {showMenu && (
-                <div className="card-sky absolute right-0 mt-2 w-48 p-2 z-50">
-                  <button
-                    className="w-full text-left px-4 py-2 hover:bg-sky-50 rounded text-sky-deep"
-                    onClick={() => { setShowContactInfo(true); setShowMenu(false); }}
-                  >
-                    View Contact Info
-                  </button>
-                  <button
-                    className="w-full text-left px-4 py-2 hover:bg-sky-50 rounded text-sky-deep"
-                    onClick={() => { setShowMedia(true); setShowMenu(false); }}
-                  >
-                    View Media
-                  </button>
-                </div>
-              )}
-            </div>
+  {/* Chat Header */}
+  <div className="bg-white border-b border-sky-200 p-4 flex-shrink-0 sticky top-0 z-20">
+    <div className="flex items-center justify-between">
+      <div className="flex items-center space-x-3">
+        {/* Hamburger menu button only on mobile */}
+        {onOpenSidebar && (
+          <button
+            className="md:hidden mr-2 bg-white rounded-full p-2 shadow-md border border-sky-100"
+            onClick={onOpenSidebar}
+            aria-label="Open sidebar"
+            style={{ marginLeft: '-0.5rem' }}
+          >
+            <Menu className="text-sky-primary" size={22} />
+          </button>
+        )}
+        <div className="relative">
+          <div className="w-10 h-10 bg-gradient-to-br from-sky-400 to-sky-600 rounded-full flex items-center justify-center text-white font-bold shadow-md border-2 border-sky-200">
+            {activeUser?.profilephoto ? (
+              <img 
+                src={activeUser.profilephoto} 
+                alt={activeUser.fullname}
+                className="w-8 h-8 rounded-full object-cover" 
+              />
+            ) : (
+              <span className="text-xs">{getInitials(activeUser?.fullname || 'User')}</span>
+            )}
           </div>
         </div>
+        <div>
+          <h3 className="font-semibold text-sky-deep" data-testid="text-active-user-name">
+            {activeUser?.fullname}
+          </h3>
+        </div>
       </div>
+      <div className="flex space-x-2">
+        <button 
+          className="p-2 hover:bg-sky-50 rounded-lg transition-colors"
+          data-testid="button-voice-call"
+        >
+          <Phone className="text-sky-primary" size={18} />
+        </button>
+        <button 
+          className="p-2 hover:bg-sky-50 rounded-lg transition-colors"
+          data-testid="button-video-call"
+        >
+          <Video className="text-sky-primary" size={18} />
+        </button>
+        <div className="relative">
+          <button
+            className="p-2 hover:bg-sky-50 rounded-lg transition-colors"
+            data-testid="button-more-options"
+            onClick={() => setShowMenu((v) => !v)}
+          >
+            <MoreVertical className="text-sky-primary" size={18} />
+          </button>
+          {showMenu && (
+            <div className="card-sky absolute right-0 mt-2 w-48 p-2 z-50">
+              <button
+                className="w-full text-left px-4 py-2 hover:bg-sky-50 rounded text-sky-deep"
+                onClick={() => { setShowContactInfo(true); setShowMenu(false); }}
+              >
+                View Contact Info
+              </button>
+              <button
+                className="w-full text-left px-4 py-2 hover:bg-sky-50 rounded text-sky-deep"
+                onClick={() => { setShowMedia(true); setShowMenu(false); }}
+              >
+                View Media
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto py-4 px-2 min-h-0 bg-gradient-to-b from-sky-25 to-white" style={{ maxHeight: '100%' }}>
+  <div className="flex-1 min-h-0 overflow-y-auto py-4 px-2 bg-gradient-to-b from-sky-25 to-white">
         {messages.length === 0 ? (
           <div className="text-center py-8">
             <p className="text-neutral-500">No messages yet. Start the conversation!</p>
@@ -467,15 +486,24 @@ function Logo3DTilt() {
           </div>
           
           <div className="flex-1">
-            <input
-              type="text"
+            <textarea
               ref={inputRef}
               placeholder="Type a message..."
               value={messageText}
-              onChange={(e) => setMessageText(e.target.value)}
-              className="input-sky rounded-full"
+              onChange={e => setMessageText(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  if ((messageText.trim() || selectedFiles.length > 0) && !isUploading) {
+                    handleSendMessage(e);
+                  }
+                }
+              }}
+              rows={1}
+              className="input-sky rounded-full resize-none w-full min-h-[40px] max-h-40 overflow-auto"
               data-testid="input-message"
               autoFocus
+              style={{whiteSpace: 'pre-wrap'}}
             />
           </div>
           
