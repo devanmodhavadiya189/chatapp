@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useChat } from '../context/ChatContext';
 import { useAuth } from '../context/AuthContext';
-import { Menu, Paperclip, Phone, Video, MoreVertical, File, X, Smile, Send, ArrowLeft } from 'lucide-react';
+import { Menu, Paperclip, Phone, Video, MoreVertical, File, X, Smile, Send } from 'lucide-react';
 import image1 from '../assets/image1.jpg';
 
 import Welcome3DFace from './Welcome3DFace';
@@ -48,7 +48,7 @@ async function compressImage(file, maxSizeMB = 10) {
   });
 }
 
-export default function ChatArea({ onOpenSidebar, onShowProfile, onShowAbout, onBackToUserList }) {
+export default function ChatArea({ onOpenSidebar, onShowProfile, onShowAbout }) {
   // Refs
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -357,28 +357,16 @@ function Logo3DTilt() {
   {/* Chat Header */}
   <div className="bg-white border-b border-sky-200 p-4 flex-shrink-0 sticky top-0 z-20">
     <div className="flex items-center justify-between">
-      <div className="flex items-center space-x-3">
-        {/* Back button for mobile when in chat */}
-        {onBackToUserList && (
+      <div className="flex items-center space-x-2">
+        {/* Hamburger menu button - always available on mobile */}
+        {onOpenSidebar && (
           <button
-            className="md:hidden mr-2 bg-white rounded-full p-2 shadow-md border border-sky-100 min-w-[44px] min-h-[44px] flex items-center justify-center"
-            onClick={onBackToUserList}
-            aria-label="Back to user list"
-            style={{ marginLeft: '-0.5rem', touchAction: 'manipulation' }}
-          >
-            <ArrowLeft className="text-sky-primary" size={22} />
-          </button>
-        )}
-        
-        {/* Hamburger menu button only on mobile when no back button */}
-        {onOpenSidebar && !onBackToUserList && (
-          <button
-            className="md:hidden mr-2 bg-white rounded-full p-2 shadow-md border border-sky-100"
+            className="md:hidden bg-white rounded-full p-2 shadow-md border border-sky-100 min-w-[44px] min-h-[44px] flex items-center justify-center"
             onClick={onOpenSidebar}
             aria-label="Open sidebar"
-            style={{ marginLeft: '-0.5rem' }}
+            style={{ touchAction: 'manipulation' }}
           >
-            <Menu className="text-sky-primary" size={22} />
+            <Menu className="text-sky-primary" size={20} />
           </button>
         )}
         <div className="relative">
