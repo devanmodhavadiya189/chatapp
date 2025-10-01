@@ -210,7 +210,7 @@ export default function MessageBubble({ message, isOwnMessage, senderName }) {
 
   return (
     <div className={`flex ${isOwnMessage ? 'justify-end' : 'justify-start'} mb-6 px-2 animate-sky-fade`}>
-      <div className={`flex ${isOwnMessage ? 'flex-row-reverse' : 'flex-row'} items-start gap-3 max-w-[70%] ${isOwnMessage ? 'ml-12' : 'mr-12'}`}>
+      <div className={`flex ${isOwnMessage ? 'flex-row-reverse' : 'flex-row'} items-start gap-3 max-w-[90%] ${isOwnMessage ? 'ml-4' : 'mr-4'}`}>
         
         {/* Avatar - Properly aligned at the top */}
         <div className={`flex-shrink-0 w-10 h-10 rounded-full shadow-md border-2 ${isOwnMessage ? 'border-sky-200' : 'border-sky-300'} overflow-hidden bg-gradient-to-br from-sky-400 to-sky-600 mt-6`}>
