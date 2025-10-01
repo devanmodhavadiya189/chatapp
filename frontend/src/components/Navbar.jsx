@@ -27,31 +27,33 @@ export default function Navbar() {
           </div>
           
           {/* Navigation Links */}
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-2 sm:space-x-6">
             <Link 
               href="/about" 
-              className="nav-link-sky"
+              className="nav-link-sky p-2 min-h-[44px] flex items-center justify-center"
+              style={{ touchAction: 'manipulation' }}
             >
               About
             </Link>
             
             {/* Authentication Section */}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-1 sm:space-x-3">
               {isAuthenticated ? (
                 <div className="flex items-center space-x-3">
                   <Link 
                     href="/settings" 
-                    className="flex items-center space-x-2 group"
+                    className="flex items-center space-x-1 sm:space-x-2 group p-2 min-h-[44px] min-w-[44px] rounded-lg hover:bg-sky-50 active:bg-sky-100 transition-colors"
+                    style={{ touchAction: 'manipulation' }}
                   >
                     <div className="relative">
                       <img 
                         src={image2} 
                         alt="User Avatar" 
-                        className="w-8 h-8 rounded-full object-cover border-2 border-sky-200 group-hover:border-sky-300 transition-colors" 
+                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-sky-200 group-hover:border-sky-300 transition-colors" 
                       />
                       <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 rounded-full border border-white"></span>
                     </div>
-                    <span className="nav-link-sky hidden md:inline">
+                    <span className="nav-link-sky hidden md:inline text-sm">
                       Account
                     </span>
                   </Link>
@@ -60,13 +62,15 @@ export default function Navbar() {
                 <div className="flex items-center space-x-3">
                   <Link 
                     href="/login" 
-                    className="btn-sky-secondary text-sm px-4 py-2"
+                    className="btn-sky-secondary text-xs sm:text-sm px-3 sm:px-4 py-2 min-h-[44px] flex items-center justify-center"
+                    style={{ touchAction: 'manipulation' }}
                   >
                     Log in
                   </Link>
                   <Link 
                     href="/signup" 
-                    className="btn-sky-primary text-sm px-4 py-2"
+                    className="btn-sky-primary text-xs sm:text-sm px-3 sm:px-4 py-2 min-h-[44px] flex items-center justify-center"
+                    style={{ touchAction: 'manipulation' }}
                   >
                     Sign up
                   </Link>

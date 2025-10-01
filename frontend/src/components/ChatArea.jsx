@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useChat } from '../context/ChatContext';
 import { useAuth } from '../context/AuthContext';
-import { Menu, Paperclip, Phone, Video, MoreVertical, File, X, Smile, Send } from 'lucide-react';
+import { Menu, Paperclip, Phone, Video, MoreVertical, File, X, Smile, Send, ArrowLeft } from 'lucide-react';
 import image1 from '../assets/image1.jpg';
 
 import Welcome3DFace from './Welcome3DFace';
@@ -48,7 +48,7 @@ async function compressImage(file, maxSizeMB = 10) {
   });
 }
 
-export default function ChatArea({ onOpenSidebar }) {
+export default function ChatArea({ onOpenSidebar, onShowProfile, onShowAbout, onBackToUserList }) {
   // Refs
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -267,7 +267,10 @@ export default function ChatArea({ onOpenSidebar }) {
       <div className="flex-1 flex flex-col md:items-center md:justify-center">
         {/* Show Sidebar (user list) on mobile only */}
         <div className="block md:hidden border-b border-sky-100">
-          <Sidebar />
+          <Sidebar 
+            onShowProfile={onShowProfile}
+            onShowAbout={onShowAbout}
+          />
         </div>
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
@@ -355,8 +358,20 @@ function Logo3DTilt() {
   <div className="bg-white border-b border-sky-200 p-4 flex-shrink-0 sticky top-0 z-20">
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-3">
-        {/* Hamburger menu button only on mobile */}
-        {onOpenSidebar && (
+        {/* Back button for mobile when in chat */}
+        {onBackToUserList && (
+          <button
+            className="md:hidden mr-2 bg-white rounded-full p-2 shadow-md border border-sky-100 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            onClick={onBackToUserList}
+            aria-label="Back to user list"
+            style={{ marginLeft: '-0.5rem', touchAction: 'manipulation' }}
+          >
+            <ArrowLeft className="text-sky-primary" size={22} />
+          </button>
+        )}
+        
+        {/* Hamburger menu button only on mobile when no back button */}
+        {onOpenSidebar && !onBackToUserList && (
           <button
             className="md:hidden mr-2 bg-white rounded-full p-2 shadow-md border border-sky-100"
             onClick={onOpenSidebar}

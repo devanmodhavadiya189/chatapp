@@ -42,18 +42,18 @@ export default function Signup() {
   };
 
   return (
-    <div className="h-screen bg-sky-subtle flex flex-col">
+    <div className="min-h-screen bg-sky-subtle flex flex-col">
       <Navbar />
-      <div className="flex-1 flex items-center justify-center px-4">
-        <div className="card-sky w-full max-w-md p-8 animate-sky-fade">
+      <div className="flex-1 flex items-center justify-center px-4 py-4">
+        <div className="card-sky w-full max-w-md p-4 sm:p-8 animate-sky-fade">
           {/* Header */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-6 sm:mb-8">
             <img 
               src={image2} 
               alt="SamVad Logo" 
-              className="w-16 h-16 mx-auto mb-4 rounded-xl logo-sky" 
+              className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-xl logo-sky" 
             />
-            <h2 className="text-sky-deep text-2xl font-bold mb-2">Join SamVad</h2>
+            <h2 className="text-sky-deep text-xl sm:text-2xl font-bold mb-2">Join SamVad</h2>
             <p className="text-neutral-600">Create your account to start chatting</p>
           </div>
 
@@ -125,14 +125,14 @@ export default function Signup() {
             <button
               type="submit"
               disabled={loading}
-              className="btn-sky-primary w-full py-3"
+              className="btn-sky-primary w-full py-2.5 sm:py-3 text-sm sm:text-base"
               data-testid="button-signup"
             >
               {loading ? 'Creating Account...' : 'Create Account'}
             </button>
           </form>
 
-          <p className="text-center mt-6 text-neutral-600">
+          <p className="text-center mt-4 sm:mt-6 text-neutral-600 text-sm sm:text-base">
             Already have an account?{' '}
             <Link href="/login" className="text-sky-primary font-medium hover:text-sky-primary-dark" data-testid="link-login">
               Sign in

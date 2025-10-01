@@ -45,25 +45,43 @@ export default function Sidebar({ onShowProfile, onShowAbout }) {
             />
             <h1 className="text-xl font-bold">SamVad</h1>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex space-x-1">
             <button 
-              onClick={onShowProfile}
-              className="p-2 hover:bg-sky-primary-dark rounded-lg transition-colors"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onShowProfile && onShowProfile();
+              }}
+              className="p-3 min-w-[44px] min-h-[44px] hover:bg-sky-primary-dark active:bg-sky-600 rounded-lg transition-colors flex items-center justify-center"
               data-testid="button-profile"
+              style={{ touchAction: 'manipulation' }}
+              type="button"
             >
               <User size={18} />
             </button>
             <button 
-              onClick={onShowAbout}
-              className="p-2 hover:bg-sky-primary-dark rounded-lg transition-colors"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onShowAbout && onShowAbout();
+              }}
+              className="p-3 min-w-[44px] min-h-[44px] hover:bg-sky-primary-dark active:bg-sky-600 rounded-lg transition-colors flex items-center justify-center"
               data-testid="button-about"
+              style={{ touchAction: 'manipulation' }}
+              type="button"
             >
               <Info size={18} />
             </button>
             <button 
-              onClick={handleLogout}
-              className="p-2 hover:bg-sky-primary-dark rounded-lg transition-colors"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleLogout();
+              }}
+              className="p-3 min-w-[44px] min-h-[44px] hover:bg-sky-primary-dark active:bg-sky-600 rounded-lg transition-colors flex items-center justify-center"
               data-testid="button-logout"
+              style={{ touchAction: 'manipulation' }}
+              type="button"
             >
               <LogOut size={18} />
             </button>

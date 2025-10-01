@@ -11,7 +11,7 @@ import { Menu } from 'lucide-react';
 export default function Chat() {
   const [, setLocation] = useLocation();
   const { isAuthenticated } = useAuth();
-  const { loadUsers } = useChat();
+  const { loadUsers, activeChat, selectChat } = useChat();
   const [showProfile, setShowProfile] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -20,6 +20,31 @@ export default function Chat() {
       loadUsers();
     }
   }, [isAuthenticated]);
+
+  // Handle browser back button
+  useEffect(() => {
+    const handlePopState = (event) => {
+      // If we're in a chat and user presses back, return to user list
+      if (activeChat) {
+        event.preventDefault();
+        selectChat(null); // Clear the active chat
+        // Push the current state back to prevent going to login
+        window.history.pushState(null, null, window.location.pathname);
+      }
+    };
+
+    // Add event listener for back button
+    window.addEventListener('popstate', handlePopState);
+    
+    // When a chat is selected, push a new state to history
+    if (activeChat) {
+      window.history.pushState({ chatSelected: true }, null, window.location.pathname);
+    }
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [activeChat, selectChat]);
 
   return (
     <div className="h-screen flex bg-sky-subtle animate-sky-fade overflow-hidden">
@@ -46,7 +71,12 @@ export default function Chat() {
 
       {/* Chat Area */}
       <div className="flex-1 flex flex-col h-full relative">
-        <ChatArea onOpenSidebar={() => setSidebarOpen(true)} />
+        <ChatArea 
+          onOpenSidebar={() => setSidebarOpen(true)}
+          onShowProfile={() => setShowProfile(true)}
+          onShowAbout={() => setLocation('/about')}
+          onBackToUserList={activeChat ? () => selectChat(null) : null}
+        />
       </div>
 
       {/* Profile Modal */}

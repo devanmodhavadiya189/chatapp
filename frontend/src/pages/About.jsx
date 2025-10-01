@@ -8,11 +8,9 @@ export default function About() {
     <div className="min-h-screen bg-sky-50 overflow-y-auto animate-fade-in">
       <div className="sticky top-0 z-10 bg-sky-50/90 backdrop-blur-sm border-b border-sky-100 animate-fade-in">
         <div className="container mx-auto px-4 py-4">
-          <Link href="/chat">
-            <a className="inline-flex items-center space-x-2 text-sky-700 hover:text-sky-600 transition-colors">
-              <ArrowLeft size={20} />
-              <span>Back to Chat</span>
-            </a>
+          <Link href="/chat" className="inline-flex items-center space-x-2 text-sky-700 hover:text-sky-600 transition-colors">
+            <ArrowLeft size={20} />
+            <span>Back to Chat</span>
           </Link>
         </div>
       </div>
