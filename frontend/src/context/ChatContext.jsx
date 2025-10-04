@@ -88,14 +88,14 @@ export function ChatProvider({ children }) {
         reconnectionAttempts: 10,
         timeout: 20000,
         forceNew: false,
-        autoConnect: true
+        autoConnect: true,
+        transports: ['websocket'],
+        
       });
 
       socketRef.current.on('connect', () => {
-        // Join user to enable presence tracking
         if (user?._id) {
           socketRef.current.emit('join_user', user._id);
-          // Re-join active chat if any
           if (state.activeChat) {
             socketRef.current.emit('join_chat', {
               userId: user._id,
