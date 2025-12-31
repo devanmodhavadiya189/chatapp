@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import Navbar from '../components/Navbar';
 import { useAuth } from '../context/AuthContext';

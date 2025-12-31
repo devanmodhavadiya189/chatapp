@@ -5,7 +5,6 @@ import { useChat } from '../context/ChatContext';
 import Sidebar from '../components/Sidebar';
 import ChatArea from '../components/ChatArea';
 import ProfileModal from '../components/ProfileModal';
-import { Menu } from 'lucide-react';
 
 export default function Chat() {
   const [, setLocation] = useLocation();

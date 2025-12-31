@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useChat } from '../context/ChatContext';
-import { api } from '../lib/api';
 import { Search, User, Info, LogOut, MessageCircle } from 'lucide-react';
 import image3 from '../assets/image3.jpg';
 
