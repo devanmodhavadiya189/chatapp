@@ -98,6 +98,56 @@ npm run build
 npm run preview
 ```
 
+## docker deployment
+
+### prerequisites
+
+* docker
+* docker-compose
+
+### quick start with docker
+
+#### 1. create environment file
+
+```bash
+cp .env.example .env
+```
+
+edit `.env` with your cloudinary credentials:
+
+```env
+JWT_SECRET=your-super-secret-jwt-key
+CLOUDINARY_CLOUD_NAME=your-cloudinary-cloud-name
+CLOUDINARY_API_KEY=your-cloudinary-api-key
+CLOUDINARY_API_SECRET=your-cloudinary-api-secret
+```
+
+#### 2. start all services
+
+```bash
+docker-compose up -d
+```
+
+this will start:
+- mongodb on port 27017
+- backend on port 5001
+- frontend on port 3000
+
+#### 3. access application
+
+- frontend: [http://localhost:3000](http://localhost:3000)
+- backend api: [http://localhost:5001](http://localhost:5001)
+
+### docker commands
+
+```bash
+docker-compose up -d              # start in background
+docker-compose logs -f            # view logs
+docker-compose down               # stop all services
+docker-compose down -v            # stop and remove volumes
+docker-compose up -d --build      # rebuild and start
+```
+
 ## required environment variables
 
 * mongouri
