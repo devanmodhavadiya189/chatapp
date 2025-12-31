@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'wouter'; // Added Link import here
+import { Link, useLocation } from 'wouter';
 import Navbar from '../components/Navbar';
 import { useAuth } from '../context/AuthContext';
 import image2 from '../assets/image2.jpg';
@@ -40,7 +40,7 @@ export default function Login() {
       <Navbar />
       <div className="flex-1 flex items-center justify-center px-4 py-4">
         <div className="card-sky w-full max-w-md p-4 sm:p-8 animate-sky-fade">
-          {/* Header */}
+          
           <div className="text-center mb-6 sm:mb-8">
             <img 
               src={image2} 
@@ -51,21 +51,18 @@ export default function Login() {
             <p className="text-neutral-600">Sign in to continue chatting</p>
           </div>
 
-          {/* Success Toast */}
           {showToast && (
             <div className="status-success mb-4 p-3 rounded-lg text-sm">
               Welcome back! Redirecting to chat...
             </div>
           )}
 
-          {/* Error Message */}
           {error && (
             <div className="status-error mb-4 p-3 rounded-lg text-sm">
               {error}
             </div>
           )}
 
-          {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             <div>
               <label className="block text-sm font-medium text-neutral-700 mb-2">

@@ -5,15 +5,13 @@ import { Box3, Vector3 } from 'three';
 
 function Character({ mouse }) {
   const group = useRef();
-  // const { scene } = useGLTF('/src/assets/smile1.glb');
-    const { scene } = useGLTF('/smile1this.glb');
+  const { scene } = useGLTF('/smile1this.glb');
 
 
   useEffect(() => {
     if (group.current) {
       group.current.rotation.set(0, 0, 0);
       
-      // Center the model
       const box = new Box3().setFromObject(group.current);
       const center = new Vector3();
       box.getCenter(center);
@@ -23,8 +21,8 @@ function Character({ mouse }) {
 
   useFrame(() => {
     if (group.current && mouse.current) {
-      const maxYaw = 0.5;    // Left/right rotation
-      const maxPitch = 0.3;  // Up/down rotation
+      const maxYaw = 0.5;
+      const maxPitch = 0.3;
       
       group.current.rotation.y = mouse.current.x * maxYaw;
       group.current.rotation.x = mouse.current.y * maxPitch;

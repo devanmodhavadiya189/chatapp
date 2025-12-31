@@ -28,7 +28,6 @@ class ApiClient {
     }
   }
 
-  // File upload method
   async uploadFile(file) {
     const formData = new FormData();
     formData.append('file', file);
@@ -55,7 +54,6 @@ class ApiClient {
     }
   }
 
-  // Authentication
   async login(email, password) {
     return this.makeRequest('/auth/login', {
       method: 'POST',
@@ -87,12 +85,10 @@ class ApiClient {
     });
   }
 
-  // Users
   async getUsers() {
     return this.makeRequest('/message/users');
   }
 
-  // Messages
   async getMessages(userId) {
     return this.makeRequest(`/message/${userId}`);
   }

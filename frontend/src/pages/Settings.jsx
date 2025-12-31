@@ -16,7 +16,6 @@ export default function Settings() {
       return;
     }
     
-    // Automatically open profile modal on mobile or when directly accessing settings
     openProfile();
   }, [isAuthenticated, setLocation, openProfile]);
 

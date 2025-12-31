@@ -46,7 +46,7 @@ export default function Signup() {
       <Navbar />
       <div className="flex-1 flex items-center justify-center px-4 py-4">
         <div className="card-sky w-full max-w-md p-4 sm:p-8 animate-sky-fade">
-          {/* Header */}
+       
           <div className="text-center mb-6 sm:mb-8">
             <img 
               src={image2} 
@@ -57,21 +57,18 @@ export default function Signup() {
             <p className="text-neutral-600">Create your account to start chatting</p>
           </div>
 
-          {/* Success Toast */}
           {showToast && (
             <div className="status-success mb-4 p-3 rounded-lg text-sm">
               Account created! Welcome to SamVad!
             </div>
           )}
 
-          {/* Error Message */}
           {error && (
             <div className="status-error mb-4 p-3 rounded-lg text-sm">
               {error}
             </div>
           )}
 
-          {/* Signup Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-neutral-700 mb-2">

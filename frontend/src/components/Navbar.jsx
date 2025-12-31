@@ -10,7 +10,7 @@ export default function Navbar() {
     <header className="nav-sky w-full sticky top-0 z-50">
       <div className="container-sky px-2 sm:px-0">
         <nav className="flex flex-wrap items-center justify-between h-16 min-h-[56px]">
-          {/* Brand Identity */}
+     
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-3 group">
               <div className="logo-sky">
@@ -26,7 +26,6 @@ export default function Navbar() {
             </Link>
           </div>
           
-          {/* Navigation Links */}
           <div className="flex items-center space-x-2 sm:space-x-6">
             <Link 
               href="/about" 
@@ -36,7 +35,6 @@ export default function Navbar() {
               About
             </Link>
             
-            {/* Authentication Section */}
             <div className="flex items-center space-x-1 sm:space-x-3">
               {isAuthenticated ? (
                 <div className="flex items-center space-x-3">
