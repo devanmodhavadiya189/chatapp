@@ -125,6 +125,8 @@ CLOUDINARY_API_SECRET=your-cloudinary-api-secret
 #### 2. start all services
 
 ```bash
+docker compose up -d 
+or
 docker-compose up -d
 ```
 
