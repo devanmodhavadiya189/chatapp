@@ -4,19 +4,20 @@ export default function OfflineMessageModal({ isOpen, userName, onSendPlaintext,
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full mx-4">
-        <h2 className="text-xl font-bold mb-4">User Offline</h2>
+    <div className="fixed inset-0 modal-overlay flex items-center justify-center z-50">
+      <div className="card-sky shadow-xl p-6 max-w-md w-full mx-4">
+        <h2 className="text-xl font-bold mb-4 text-themed-heading">User Offline</h2>
         
-        <p className="text-gray-700 mb-6">
-          <span className="font-semibold">{userName}</span> is currently offline. How would you like to proceed?
+        <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>
+          <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>{userName}</span> is currently offline. How would you like to proceed?
         </p>
 
         <div className="space-y-3">
           <button
             onClick={onSendPlaintext}
             disabled={isLoading}
-            className="w-full px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 disabled:bg-gray-400 transition"
+            className="w-full px-4 py-3 rounded-2xl text-white font-medium transition-all disabled:opacity-40"
+            style={{ background: 'linear-gradient(135deg, #f59e0b, #ef4444)' }}
           >
             Send Unencrypted
           </button>
@@ -24,7 +25,8 @@ export default function OfflineMessageModal({ isOpen, userName, onSendPlaintext,
           <button
             onClick={onWait}
             disabled={isLoading}
-            className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 transition"
+            className="w-full px-4 py-3 rounded-2xl text-white font-medium transition-all disabled:opacity-40"
+            style={{ background: 'var(--accent-gradient)' }}
           >
             Wait for Online (Don't Send)
           </button>
@@ -32,13 +34,14 @@ export default function OfflineMessageModal({ isOpen, userName, onSendPlaintext,
           <button
             onClick={onQueue}
             disabled={isLoading}
-            className="w-full px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 disabled:bg-gray-400 transition"
+            className="w-full px-4 py-3 rounded-2xl text-white font-medium transition-all disabled:opacity-40"
+            style={{ background: 'linear-gradient(135deg, #10b981, #06b6d4)' }}
           >
             Queue Message (Auto-Send Later)
           </button>
         </div>
 
-        <p className="text-sm text-gray-500 mt-4 text-center">
+        <p className="text-sm mt-4 text-center" style={{ color: 'var(--text-muted)' }}>
           Encrypted sends only when user comes online
         </p>
       </div>

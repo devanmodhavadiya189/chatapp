@@ -51,13 +51,13 @@ export default function Chat() {
 
       {sidebarOpen && (
         <div className="fixed inset-0 z-40 flex md:hidden">
-          <div className="w-4/5 max-w-xs bg-white h-full shadow-xl">
+          <div className="w-4/5 max-w-xs h-full shadow-xl bg-themed-surface-solid" style={{ transition: 'background 0.3s ease' }}>
             <Sidebar
               onShowProfile={() => { setShowProfile(true); setSidebarOpen(false); }}
               onShowAbout={() => { setLocation('/about'); setSidebarOpen(false); }}
             />
           </div>
-          <div className="flex-1 bg-black bg-opacity-30" onClick={() => setSidebarOpen(false)}></div>
+          <div className="flex-1" style={{ background: 'var(--modal-overlay)', backdropFilter: 'blur(4px)' }} onClick={() => setSidebarOpen(false)}></div>
         </div>
       )}
 

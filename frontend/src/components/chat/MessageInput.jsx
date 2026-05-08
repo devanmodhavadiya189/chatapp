@@ -1,5 +1,6 @@
 import { Paperclip, Smile, Send } from 'lucide-react';
 import EmojiPicker from 'emoji-picker-react';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function MessageInput({
   messageText,
@@ -14,6 +15,8 @@ export default function MessageInput({
   emojiPickerRef,
   iconClickedRef
 }) {
+  const { theme } = useTheme();
+
   return (
     <form onSubmit={handleSendMessage} className="flex items-center space-x-3">
       <button
@@ -23,8 +26,11 @@ export default function MessageInput({
           iconClickedRef.current = true;
           setShowFileUpload((prev) => !prev);
         }}
-        className="p-2 text-neutral-500 hover:text-sky-primary transition-colors"
+        className="p-2 transition-colors rounded-xl"
         data-testid="button-attach-file"
+        style={{ color: 'var(--text-tertiary)' }}
+        onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent-primary)'}
+        onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-tertiary)'}
       >
         <Paperclip size={20} />
       </button>
@@ -33,8 +39,11 @@ export default function MessageInput({
         <button
           type="button"
           onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-          className="p-2 text-neutral-500 hover:text-sky-primary transition-colors"
+          className="p-2 transition-colors rounded-xl"
           data-testid="button-emoji"
+          style={{ color: 'var(--text-tertiary)' }}
+          onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent-primary)'}
+          onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-tertiary)'}
         >
           <Smile size={20} />
         </button>
@@ -47,6 +56,7 @@ export default function MessageInput({
               }}
               width={300}
               height={400}
+              theme={theme === 'dark' ? 'dark' : 'light'}
             />
           </div>
         )}

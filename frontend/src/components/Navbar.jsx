@@ -1,5 +1,6 @@
 import { Link } from 'wouter';
 import { useAuth } from '../context/AuthContext';
+import ThemeToggle from './ThemeToggle';
 import image1 from '../assets/image1.jpg';
 
 export default function Navbar() {
@@ -16,7 +17,7 @@ export default function Navbar() {
                 <img 
                   src={image1} 
                   alt="SamVad" 
-                  className="w-10 h-10 rounded-lg object-cover" 
+                  className="w-10 h-10 rounded-2xl object-cover" 
                 />
               </div>
               <span className="heading-sky text-2xl font-bold">
@@ -25,7 +26,7 @@ export default function Navbar() {
             </Link>
           </div>
           
-          <div className="flex items-center space-x-2 sm:space-x-6">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             <Link 
               href="/about" 
               className="nav-link-sky p-2 min-h-[44px] flex items-center justify-center"
@@ -61,6 +62,11 @@ export default function Navbar() {
                   </Link>
                 </div>
               )}
+            </div>
+
+            {}
+            <div className="ml-1 sm:ml-2">
+              <ThemeToggle />
             </div>
           </div>
         </nav>

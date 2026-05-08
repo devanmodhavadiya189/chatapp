@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useChat } from '../context/ChatContext';
 import { Search, User, Info, LogOut, MessageCircle } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 import image3 from '../assets/image3.jpg';
 
 export default function Sidebar({ onShowProfile, onShowAbout }) {
@@ -32,15 +33,15 @@ export default function Sidebar({ onShowProfile, onShowAbout }) {
   };
 
   return (
-    <div className="w-full sm:w-80 bg-white border-r border-sky-200 flex flex-col h-full max-h-screen sm:max-h-full">
-      {/* Header */}
-      <div className="p-4 bg-sky-gradient text-white">
+    <div className="w-full sm:w-80 bg-themed-surface-solid border-r border-themed flex flex-col h-full max-h-screen sm:max-h-full" style={{ transition: 'background 0.3s ease, border-color 0.3s ease' }}>
+      {}
+      <div className="p-4 sidebar-header-bg text-white">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <img 
               src={image3} 
               alt="SamVad" 
-              className="w-8 h-8 rounded-lg logo-sky" 
+              className="w-8 h-8 rounded-xl logo-sky" 
             />
             <h1 className="text-xl font-bold">SamVad</h1>
           </div>
@@ -51,7 +52,7 @@ export default function Sidebar({ onShowProfile, onShowAbout }) {
                 e.stopPropagation();
                 onShowProfile && onShowProfile();
               }}
-              className="p-3 min-w-[44px] min-h-[44px] hover:bg-sky-primary-dark active:bg-sky-600 rounded-lg transition-colors flex items-center justify-center"
+              className="p-3 min-w-[44px] min-h-[44px] hover:bg-white/10 active:bg-white/20 rounded-xl transition-colors flex items-center justify-center"
               data-testid="button-profile"
               style={{ touchAction: 'manipulation' }}
               type="button"
@@ -64,7 +65,7 @@ export default function Sidebar({ onShowProfile, onShowAbout }) {
                 e.stopPropagation();
                 onShowAbout && onShowAbout();
               }}
-              className="p-3 min-w-[44px] min-h-[44px] hover:bg-sky-primary-dark active:bg-sky-600 rounded-lg transition-colors flex items-center justify-center"
+              className="p-3 min-w-[44px] min-h-[44px] hover:bg-white/10 active:bg-white/20 rounded-xl transition-colors flex items-center justify-center"
               data-testid="button-about"
               style={{ touchAction: 'manipulation' }}
               type="button"
@@ -77,22 +78,23 @@ export default function Sidebar({ onShowProfile, onShowAbout }) {
                 e.stopPropagation();
                 handleLogout();
               }}
-              className="p-3 min-w-[44px] min-h-[44px] hover:bg-sky-primary-dark active:bg-sky-600 rounded-lg transition-colors flex items-center justify-center"
+              className="p-3 min-w-[44px] min-h-[44px] hover:bg-white/10 active:bg-white/20 rounded-xl transition-colors flex items-center justify-center"
               data-testid="button-logout"
               style={{ touchAction: 'manipulation' }}
               type="button"
             >
               <LogOut size={18} />
             </button>
+            <ThemeToggle />
           </div>
         </div>
       </div>
 
-      {/* Current User Profile */}
-      <div className="p-4 border-b border-sky-200">
+      {}
+      <div className="p-4 border-b border-themed">
         <div className="flex items-center space-x-3">
           <div className="relative">
-            <div className="w-12 h-12 bg-gradient-to-br from-sky-400 to-sky-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg border-2 border-sky-300">
+            <div className="w-12 h-12 avatar-themed rounded-full flex items-center justify-center text-white font-bold shadow-lg border-2">
               {user?.profilephoto ? (
                 <img 
                   src={user.profilephoto} 
@@ -103,18 +105,18 @@ export default function Sidebar({ onShowProfile, onShowAbout }) {
                 <span className="text-sm">{getInitials(user?.fullname || 'User')}</span>
               )}
             </div>
-            {/* Online indicator */}
-            <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 rounded-full border-2 border-white shadow-sm"></div>
+            {}
+            <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 rounded-full border-2 border-themed-surface-solid shadow-sm" style={{ borderColor: 'var(--bg-surface-solid)' }}></div>
           </div>
           <div className="flex-1">
-            <h3 className="font-semibold text-sky-deep">{user?.fullname}</h3>
-            <p className="text-sm text-neutral-600 truncate">{user?.email}</p>
+            <h3 className="font-semibold text-themed-heading">{user?.fullname}</h3>
+            <p className="text-sm text-themed-secondary truncate">{user?.email}</p>
           </div>
         </div>
       </div>
 
-      {/* Search */}
-      <div className="p-4 border-b border-sky-200">
+      {}
+      <div className="p-4 border-b border-themed">
         <div className="relative">
           <input
             type="text"
@@ -124,31 +126,38 @@ export default function Sidebar({ onShowProfile, onShowAbout }) {
             className="input-sky pl-10"
             data-testid="input-search"
           />
-          <Search className="absolute left-3 top-3 text-neutral-400" size={16} />
+          <Search className="absolute left-3 top-3 text-themed-muted" size={16} style={{ color: 'var(--text-muted)' }} />
         </div>
       </div>
 
-  {/* Users List */}
+  {}
   <div className="flex-1 min-h-0 overflow-y-auto">
         {filteredUsers.length === 0 ? (
           <div className="p-8 text-center">
-            <MessageCircle className="mx-auto mb-4 text-sky-primary" size={48} />
-            <p className="text-neutral-500">No conversations yet</p>
-            <p className="text-sm text-neutral-400 mt-1">Start a new chat with someone!</p>
+            <MessageCircle className="mx-auto mb-4" size={48} style={{ color: 'var(--accent-primary)' }} />
+            <p className="text-themed-tertiary">No conversations yet</p>
+            <p className="text-sm text-themed-muted mt-1">Start a new chat with someone!</p>
           </div>
         ) : (
           filteredUsers.map((chatUser) => (
             <div
               key={chatUser._id}
               onClick={() => selectChat(chatUser._id)}
-              className={`p-4 hover:bg-sky-50 cursor-pointer border-b border-sky-100 transition-colors ${
-                activeChat === chatUser._id ? 'bg-sky-100 border-sky-300' : ''
+              className={`p-4 cursor-pointer border-b transition-all duration-200 ${
+                activeChat === chatUser._id 
+                  ? 'border-themed' 
+                  : 'border-themed-light'
               }`}
+              style={{
+                background: activeChat === chatUser._id ? 'var(--bg-surface-active)' : 'transparent',
+              }}
+              onMouseEnter={(e) => { if (activeChat !== chatUser._id) e.currentTarget.style.background = 'var(--bg-surface-hover)'; }}
+              onMouseLeave={(e) => { if (activeChat !== chatUser._id) e.currentTarget.style.background = 'transparent'; }}
               data-testid={`chat-user-${chatUser._id}`}
             >
               <div className="flex items-center space-x-3">
                 <div className="relative">
-                  <div className="w-12 h-12 bg-gradient-to-br from-sky-400 to-sky-600 rounded-full flex items-center justify-center text-white font-bold shadow-md border-2 border-sky-200 hover:border-sky-300 transition-all duration-200">
+                  <div className="w-12 h-12 avatar-themed rounded-full flex items-center justify-center text-white font-bold shadow-md border-2 transition-all duration-200">
                     {chatUser.profilephoto ? (
                       <img 
                         src={chatUser.profilephoto} 
@@ -159,14 +168,16 @@ export default function Sidebar({ onShowProfile, onShowAbout }) {
                       <span className="text-sm">{getInitials(chatUser.fullname)}</span>
                     )}
                   </div>
-                  {/* Online indicator for active users */}
-                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-white shadow-sm"></div>
+                  {}
+                  {chatUser.isOnline && (
+                    <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 shadow-sm" style={{ borderColor: 'var(--bg-surface-solid)' }}></div>
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h4 className="font-semibold text-sky-deep truncate">
+                  <h4 className="font-semibold text-themed-heading truncate">
                     {chatUser.fullname}
                   </h4>
-                  <p className="text-sm text-neutral-600 truncate">
+                  <p className="text-sm text-themed-secondary truncate">
                     Start a conversation
                   </p>
                 </div>

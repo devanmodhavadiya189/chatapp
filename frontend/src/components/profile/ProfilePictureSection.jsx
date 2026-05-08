@@ -3,10 +3,10 @@ import { getInitials } from '../../utils/userHelpers';
 
 export default function ProfilePictureSection({ user, handleFileChange }) {
   return (
-    <div className="p-6 border-b border-sky-200">
+    <div className="p-6 border-b border-themed">
       <div className="flex items-center space-x-4">
         <div className="relative">
-          <div className="w-32 h-32 bg-gradient-to-br from-sky-400 to-sky-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold shadow-lg border-4 border-sky-300">
+          <div className="w-32 h-32 avatar-themed rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold shadow-lg border-4">
             {user?.profilephoto ? (
               <img 
                 src={user.profilephoto} 
@@ -17,7 +17,7 @@ export default function ProfilePictureSection({ user, handleFileChange }) {
               <span className="text-3xl">{getInitials(user?.fullname || 'User')}</span>
             )}
           </div>
-          <label className="absolute bottom-0 right-0 bg-sky-primary text-white p-3 rounded-full cursor-pointer hover:bg-sky-primary-dark transition-colors shadow-lg border-2 border-white">
+          <label className="absolute bottom-0 right-0 p-3 rounded-full cursor-pointer transition-all shadow-lg border-2" style={{ background: 'var(--accent-primary)', color: 'white', borderColor: 'var(--bg-surface-solid)' }}>
             <Camera size={18} />
             <input
               type="file"
@@ -28,8 +28,8 @@ export default function ProfilePictureSection({ user, handleFileChange }) {
           </label>
         </div>
         <div>
-          <h3 className="font-semibold text-sky-deep">{user?.fullname}</h3>
-          <p className="text-sm text-neutral-500">{user?.email}</p>
+          <h3 className="font-semibold text-themed-heading">{user?.fullname}</h3>
+          <p className="text-sm text-themed-tertiary">{user?.email}</p>
         </div>
       </div>
     </div>

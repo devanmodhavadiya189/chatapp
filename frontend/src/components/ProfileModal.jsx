@@ -99,13 +99,16 @@ export default function ProfileModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 modal-overlay flex items-center justify-center z-50 p-4">
       <div className="card-sky w-full max-w-md max-h-[90vh] overflow-y-auto animate-sky-slide">
-        <div className="flex items-center justify-between p-6 border-b border-sky-200">
-          <h2 className="text-2xl font-bold text-sky-deep">Edit Profile</h2>
+        <div className="flex items-center justify-between p-6 border-b border-themed">
+          <h2 className="text-2xl font-bold text-themed-heading">Edit Profile</h2>
           <button
             onClick={onClose}
-            className="text-neutral-500 hover:text-sky-primary transition-colors"
+            className="transition-colors rounded-xl p-1"
+            style={{ color: 'var(--text-tertiary)' }}
+            onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent-primary)'}
+            onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-tertiary)'}
           >
             <X size={24} />
           </button>
@@ -113,14 +116,18 @@ export default function ProfileModal({ isOpen, onClose }) {
 
         <ProfilePictureSection user={user} handleFileChange={handleFileChange} />
 
-        <div className="flex border-b border-sky-200">
+        <div className="flex border-b border-themed">
           <button
             onClick={() => setActiveTab('profile')}
             className={`flex-1 py-3 px-4 text-sm font-medium transition-colors ${
               activeTab === 'profile'
-                ? 'text-sky-primary border-b-2 border-sky-primary'
-                : 'text-neutral-500 hover:text-sky-primary'
+                ? 'border-b-2'
+                : ''
             }`}
+            style={{
+              color: activeTab === 'profile' ? 'var(--accent-primary)' : 'var(--text-tertiary)',
+              borderColor: activeTab === 'profile' ? 'var(--accent-primary)' : 'transparent'
+            }}
           >
             Profile Info
           </button>
@@ -128,9 +135,13 @@ export default function ProfileModal({ isOpen, onClose }) {
             onClick={() => setActiveTab('password')}
             className={`flex-1 py-3 px-4 text-sm font-medium transition-colors ${
               activeTab === 'password'
-                ? 'text-sky-primary border-b-2 border-sky-primary'
-                : 'text-neutral-500 hover:text-sky-primary'
+                ? 'border-b-2'
+                : ''
             }`}
+            style={{
+              color: activeTab === 'password' ? 'var(--accent-primary)' : 'var(--text-tertiary)',
+              borderColor: activeTab === 'password' ? 'var(--accent-primary)' : 'transparent'
+            }}
           >
             Change Password
           </button>
@@ -138,13 +149,13 @@ export default function ProfileModal({ isOpen, onClose }) {
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+            <div className="status-error px-4 py-3 text-sm">
               {error}
             </div>
           )}
           
           {success && (
-            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
+            <div className="status-success px-4 py-3 text-sm">
               {success}
             </div>
           )}

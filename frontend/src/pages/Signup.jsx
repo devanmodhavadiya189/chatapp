@@ -43,34 +43,34 @@ export default function Signup() {
   return (
     <div className="min-h-screen bg-sky-subtle flex flex-col">
       <Navbar />
-      <div className="flex-1 flex items-center justify-center px-4 py-4">
+      <div className="flex-1 flex items-center justify-center px-4 py-4 relative z-10">
         <div className="card-sky w-full max-w-md p-4 sm:p-8 animate-sky-fade">
        
           <div className="text-center mb-6 sm:mb-8">
             <img 
               src={image2} 
               alt="SamVad Logo" 
-              className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-xl logo-sky" 
+              className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-2xl logo-sky" 
             />
-            <h2 className="text-sky-deep text-xl sm:text-2xl font-bold mb-2">Join SamVad</h2>
-            <p className="text-neutral-600">Create your account to start chatting</p>
+            <h2 className="text-themed-heading text-xl sm:text-2xl font-bold mb-2">Join SamVad</h2>
+            <p className="text-themed-secondary">Create your account to start chatting</p>
           </div>
 
           {showToast && (
-            <div className="status-success mb-4 p-3 rounded-lg text-sm">
+            <div className="status-success mb-4 p-3 text-sm">
               Account created! Welcome to SamVad!
             </div>
           )}
 
           {error && (
-            <div className="status-error mb-4 p-3 rounded-lg text-sm">
+            <div className="status-error mb-4 p-3 text-sm">
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-2">
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text-label)' }}>
                 Full Name
               </label>
               <input
@@ -86,7 +86,7 @@ export default function Signup() {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-2">
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text-label)' }}>
                 Email
               </label>
               <input
@@ -102,7 +102,7 @@ export default function Signup() {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-2">
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text-label)' }}>
                 Password
               </label>
               <input
@@ -128,9 +128,9 @@ export default function Signup() {
             </button>
           </form>
 
-          <p className="text-center mt-4 sm:mt-6 text-neutral-600 text-sm sm:text-base">
+          <p className="text-center mt-4 sm:mt-6 text-sm sm:text-base" style={{ color: 'var(--text-secondary)' }}>
             Already have an account?{' '}
-            <Link href="/login" className="text-sky-primary font-medium hover:text-sky-primary-dark" data-testid="link-login">
+            <Link href="/login" className="text-themed-link font-medium" data-testid="link-login">
               Sign in
             </Link>
           </p>

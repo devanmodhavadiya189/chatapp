@@ -4,11 +4,11 @@ export default function ProfileInfoForm({ formData, handleInputChange }) {
   return (
     <>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium mb-2 text-themed-label" style={{ color: 'var(--text-label)' }}>
           Full Name
         </label>
         <div className="relative">
-          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+          <User className="absolute left-3 top-1/2 transform -translate-y-1/2" size={18} style={{ color: 'var(--text-muted)' }} />
           <input
             type="text"
             name="fullname"
@@ -21,11 +21,11 @@ export default function ProfileInfoForm({ formData, handleInputChange }) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium mb-2 text-themed-label" style={{ color: 'var(--text-label)' }}>
           Email Address
         </label>
         <div className="relative">
-          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2" size={18} style={{ color: 'var(--text-muted)' }} />
           <input
             type="email"
             name="email"

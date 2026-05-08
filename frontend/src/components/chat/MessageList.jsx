@@ -4,7 +4,7 @@ export default function MessageList({ messages, user, activeUser, messagesEndRef
   if (messages.length === 0) {
     return (
       <div className="text-center py-8">
-        <p className="text-neutral-500">No messages yet. Start the conversation!</p>
+        <p className="text-themed-tertiary" style={{ color: 'var(--text-tertiary)' }}>No messages yet. Start the conversation!</p>
       </div>
     );
   }

@@ -31,7 +31,7 @@ export default function ChatArea({ onOpenSidebar, onShowProfile, onShowAbout }) 
   const [showKeyLossBanner, setShowKeyLossBanner] = useState(false);
 
   const { user, keyWasRegenerated } = useAuth();
-  const { activeChat, messages, sendMessage, getUserById, sharedKeyStatus, offlineModal, handleSendPlaintext, handleWaitForOnline, handleQueueMessage } = useChat();
+  const { activeChat, messages, loading, sendMessage, getUserById, sharedKeyStatus, offlineModal, handleSendPlaintext, handleWaitForOnline, handleQueueMessage } = useChat();
   const activeUser = getUserById(activeChat);
 
   const {
@@ -194,7 +194,7 @@ export default function ChatArea({ onOpenSidebar, onShowProfile, onShowAbout }) 
       />
 
       {fileError && (
-        <div className="bg-red-100 text-red-700 px-4 py-2 rounded mb-2 text-center">
+        <div className="status-error px-4 py-2 mb-2 text-center text-sm">
           {fileError}
         </div>
       )}
@@ -216,16 +216,26 @@ export default function ChatArea({ onOpenSidebar, onShowProfile, onShowAbout }) 
         />
       </div>
 
-      <div className="flex-1 min-h-0 overflow-y-auto py-4 px-2 bg-gradient-to-b from-sky-25 to-white">
-        <MessageList 
-          messages={messages}
-          user={user}
-          activeUser={activeUser}
-          messagesEndRef={messagesEndRef}
-        />
+      <div className="flex-1 min-h-0 overflow-y-auto py-4 px-2 chat-messages-bg">
+        {loading && messages.length === 0 ? (
+          <div className="flex items-center justify-center h-full">
+            <div className="text-center">
+              <div className="loading-sky w-8 h-8 mx-auto mb-4"></div>
+              <p className="text-themed-tertiary font-medium mb-1 tracking-wide" style={{ color: 'var(--accent-primary)' }}>Securing Connection</p>
+              <p className="text-themed-tertiary text-xs opacity-70" style={{ color: 'var(--text-muted)' }}>Establishing End-to-End Encryption...</p>
+            </div>
+          </div>
+        ) : (
+          <MessageList 
+            messages={messages}
+            user={user}
+            activeUser={activeUser}
+            messagesEndRef={messagesEndRef}
+          />
+        )}
       </div>
 
-      <div className="bg-white border-t border-sky-200 p-4 flex-shrink-0 relative">
+      <div className="chat-input-area-bg border-t border-themed p-4 flex-shrink-0 relative">
         <MessageInput
           messageText={messageText}
           setMessageText={setMessageText}

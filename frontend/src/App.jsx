@@ -2,6 +2,8 @@ import { Switch, Route } from "wouter";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
 import { ChatProvider } from "./context/ChatContext";
+import { ThemeProvider } from "./context/ThemeContext";
+import ParticleBackground from "./components/ParticleBackground";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -24,11 +26,14 @@ function Router() {
 
 function App() {
   return (
-    <AuthProvider>
-      <ChatProvider>
-        <Router />
-      </ChatProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <ParticleBackground />
+      <AuthProvider>
+        <ChatProvider>
+          <Router />
+        </ChatProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

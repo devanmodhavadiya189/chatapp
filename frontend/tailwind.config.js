@@ -18,7 +18,25 @@ export default {
           700: '#004280',
           800: '#002a4d',
           900: '#00111a',
-        }
+        },
+        dark: {
+          DEFAULT: '#0a0b10',
+          100: '#13141d',
+          200: '#171822',
+          300: '#1e1f2e',
+          400: '#252738',
+        },
+        glass: {
+          DEFAULT: 'rgba(255, 255, 255, 0.03)',
+          border: 'rgba(255, 255, 255, 0.08)',
+          hover: 'rgba(255, 255, 255, 0.06)',
+          light: 'rgba(255, 255, 255, 0.05)',
+        },
+        neon: {
+          purple: '#a855f7',
+          blue: '#3b82f6',
+          pink: '#ec4899',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
