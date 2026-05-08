@@ -13,4 +13,6 @@ router.put("/update-profile" ,middleware.protectroute , authfun.updateprofile);
 
 router.get("/check",middleware.protectroute,authfun.checkauth);
 
+router.post("/publish-key", middleware.protectroute, authfun.publishKey);
+
 export default router;

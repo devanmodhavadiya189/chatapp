@@ -4,6 +4,22 @@ import { renderFileContent } from './message/fileContentRenderer.jsx';
 
 export default function MessageBubble({ message, isOwnMessage, senderName }) {
   const renderContent = () => {
+    if (message.decryption_status === 'key_unavailable') {
+      return (
+        <div style={{ color: '#999', fontStyle: 'italic', fontSize: '13px' }}>
+          Encrypted message - key unavailable
+        </div>
+      );
+    }
+
+    if (message.decryption_status === 'failed') {
+      return (
+        <div style={{ color: '#dc2626', fontStyle: 'italic', fontSize: '13px' }}>
+          Encrypted message - decryption failed
+        </div>
+      );
+    }
+
     if (message.file) {
       return renderFileContent(message);
     }
@@ -47,18 +63,24 @@ export default function MessageBubble({ message, isOwnMessage, senderName }) {
           <div className={`relative ${isOwnMessage ? 'items-end' : 'items-start'} flex flex-col`}>
             
             <div className={`absolute ${isOwnMessage ? 'right-0' : 'left-0'} ${isOwnMessage ? '-mr-2' : '-ml-2'} top-4 w-0 h-0 ${
-              isOwnMessage 
-                ? 'border-l-8 border-l-sky-500 border-t-8 border-t-transparent border-b-8 border-b-transparent'
-                : 'border-r-8 border-r-slate-100 border-t-8 border-t-transparent border-b-8 border-b-transparent'
+              message.decryption_status === 'key_unavailable' || message.decryption_status === 'failed'
+                ? isOwnMessage 
+                  ? 'border-l-8 border-l-gray-100 border-t-8 border-t-transparent border-b-8 border-b-transparent'
+                  : 'border-r-8 border-r-gray-100 border-t-8 border-t-transparent border-b-8 border-b-transparent'
+                : isOwnMessage 
+                  ? 'border-l-8 border-l-sky-500 border-t-8 border-t-transparent border-b-8 border-b-transparent'
+                  : 'border-r-8 border-r-slate-100 border-t-8 border-t-transparent border-b-8 border-b-transparent'
             }`}></div>
 
             <div className={`relative ${
               message.file 
                 ? 'bg-transparent p-0' 
-                : isOwnMessage 
-                  ? 'bg-gradient-to-r from-sky-500 to-sky-600 text-white shadow-lg' 
-                  : 'bg-gradient-to-r from-slate-100 to-slate-50 text-slate-800 shadow-lg border border-slate-200 hover:shadow-xl transition-shadow duration-200'
-            } rounded-2xl ${message.file ? '' : 'px-4 py-3'} max-w-full break-words`}>
+                : message.decryption_status === 'key_unavailable' || message.decryption_status === 'failed'
+                  ? 'bg-gray-100 text-gray-600 shadow-lg rounded-2xl px-4 py-3 border border-gray-200'
+                  : isOwnMessage 
+                    ? 'bg-gradient-to-r from-sky-500 to-sky-600 text-white shadow-lg' 
+                    : 'bg-gradient-to-r from-slate-100 to-slate-50 text-slate-800 shadow-lg border border-slate-200 hover:shadow-xl transition-shadow duration-200'
+            } rounded-2xl ${message.file ? '' : message.decryption_status === 'key_unavailable' || message.decryption_status === 'failed' ? '' : 'px-4 py-3'} max-w-full break-words`}>
               {renderContent()}
             </div>
             

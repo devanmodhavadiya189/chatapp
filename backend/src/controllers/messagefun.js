@@ -183,7 +183,7 @@ const sendmessage = async (req,res)=>
 {
     try
     {
-        const {text , file} = req.body || {};
+        const {text , file, iv} = req.body || {};
         if(!text && !file)
         {
             return res.status(400).json(
@@ -226,7 +226,8 @@ const sendmessage = async (req,res)=>
             senderid: sender,
             reciverid: reciver,
             text: text || "",
-            file: filedata
+            file: filedata,
+            iv: iv || null
         });
         
         try {
@@ -237,6 +238,7 @@ const sendmessage = async (req,res)=>
                 reciverid: newmessage.reciverid.toString(),
                 text: newmessage.text,
                 file: newmessage.file,
+                iv: newmessage.iv,
                 seen: newmessage.seen,
                 createdAt: newmessage.createdAt
             });

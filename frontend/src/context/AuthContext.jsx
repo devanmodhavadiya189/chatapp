@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer, useEffect } from 'react';
 import { api } from '../lib/api';
+import { getOrCreateKeyPair, clearKeys, hasPrivateKey } from '../utils/crypto/keyManagement';
 
 const AuthContext = createContext();
 
@@ -13,8 +14,12 @@ const authReducer = (state, action) => {
       return { ...state, error: action.payload, loading: false };
     case 'CLEAR_ERROR':
       return { ...state, error: null };
+    case 'SET_KEY_PUBLISHED':
+      return { ...state, keyPublished: action.payload };
+    case 'SET_KEY_REGENERATED':
+      return { ...state, keyWasRegenerated: action.payload };
     case 'LOGOUT':
-      return { user: null, isAuthenticated: false, loading: false, error: null };
+      return { user: null, isAuthenticated: false, loading: false, error: null, keyPublished: false, keyWasRegenerated: false };
     default:
       return state;
   }
@@ -25,10 +30,33 @@ const initialState = {
   isAuthenticated: false,
   loading: true,
   error: null,
+  keyPublished: false,
+  keyWasRegenerated: false,
 };
 
 export function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(authReducer, initialState);
+
+  const handleKeyGeneration = async (user) => {
+    try {
+      if (!user || !user._id) return;
+
+      const hadPrivateKey = hasPrivateKey(user._id);
+      const serverHasPublicKey = user.publicKey != null;
+      const keyWasLost = serverHasPublicKey && !hadPrivateKey;
+
+      if (keyWasLost) {
+        clearKeys(user._id);
+        dispatch({ type: 'SET_KEY_REGENERATED', payload: true });
+      }
+
+      const { publicKeyBase64 } = await getOrCreateKeyPair(user._id);
+      await api.publishKey(publicKeyBase64);
+      dispatch({ type: 'SET_KEY_PUBLISHED', payload: true });
+    } catch (error) {
+      console.error("Error during key generation/publication:", error);
+    }
+  };
 
   useEffect(() => {
     checkAuthStatus();
@@ -39,6 +67,7 @@ export function AuthProvider({ children }) {
       dispatch({ type: 'SET_LOADING', payload: true });
       const user = await api.checkAuth();
       dispatch({ type: 'SET_USER', payload: user });
+      await handleKeyGeneration(user);
     } catch (error) {
       dispatch({ type: 'SET_USER', payload: null });
     }
@@ -51,6 +80,7 @@ export function AuthProvider({ children }) {
       
       const user = await api.login(email, password);
       dispatch({ type: 'SET_USER', payload: user });
+      await handleKeyGeneration(user);
       
       return user;
     } catch (error) {
@@ -66,6 +96,7 @@ export function AuthProvider({ children }) {
       
       const user = await api.signup(fullname, email, password);
       dispatch({ type: 'SET_USER', payload: user });
+      await handleKeyGeneration(user);
       
       return user;
     } catch (error) {
@@ -76,6 +107,9 @@ export function AuthProvider({ children }) {
 
   const logout = async () => {
     try {
+      if (state.user && state.user._id) {
+        clearKeys(state.user._id);
+      }
       await api.logout();
       dispatch({ type: 'LOGOUT' });
     } catch (error) {

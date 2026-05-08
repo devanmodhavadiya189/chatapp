@@ -9,6 +9,8 @@ import MessageList from './chat/MessageList';
 import MessageInput from './chat/MessageInput';
 import FileUploadBox from './chat/FileUploadBox';
 import WelcomeScreen from './chat/WelcomeScreen';
+import KeyLossBanner from './crypto/KeyLossBanner';
+import OfflineMessageModal from './OfflineMessageModal';
 import { useFileHandling } from '../utils/hooks/useFileHandling';
 
 export default function ChatArea({ onOpenSidebar, onShowProfile, onShowAbout }) {
@@ -26,9 +28,10 @@ export default function ChatArea({ onOpenSidebar, onShowProfile, onShowAbout }) 
   const [showMenu, setShowMenu] = useState(false);
   const [showContactInfo, setShowContactInfo] = useState(false);
   const [showMedia, setShowMedia] = useState(false);
+  const [showKeyLossBanner, setShowKeyLossBanner] = useState(false);
 
-  const { user } = useAuth();
-  const { activeChat, messages, sendMessage, getUserById } = useChat();
+  const { user, keyWasRegenerated } = useAuth();
+  const { activeChat, messages, sendMessage, getUserById, sharedKeyStatus, offlineModal, handleSendPlaintext, handleWaitForOnline, handleQueueMessage } = useChat();
   const activeUser = getUserById(activeChat);
 
   const {
@@ -42,6 +45,12 @@ export default function ChatArea({ onOpenSidebar, onShowProfile, onShowAbout }) 
     handleDragLeave,
     handleDrop
   } = useFileHandling();
+
+  useEffect(() => {
+    if (keyWasRegenerated) {
+      setShowKeyLossBanner(true);
+    }
+  }, [keyWasRegenerated]);
 
   useEffect(() => {
     const handleEsc = (e) => {
@@ -176,6 +185,14 @@ export default function ChatArea({ onOpenSidebar, onShowProfile, onShowAbout }) 
         messages={messages} 
       />
 
+      <OfflineMessageModal
+        isOpen={offlineModal.show}
+        userName={offlineModal.userName}
+        onSendPlaintext={handleSendPlaintext}
+        onWait={handleWaitForOnline}
+        onQueue={handleQueueMessage}
+      />
+
       {fileError && (
         <div className="bg-red-100 text-red-700 px-4 py-2 rounded mb-2 text-center">
           {fileError}
@@ -189,7 +206,15 @@ export default function ChatArea({ onOpenSidebar, onShowProfile, onShowAbout }) 
         setShowContactInfo={setShowContactInfo}
         setShowMedia={setShowMedia}
         onOpenSidebar={onOpenSidebar}
+        sharedKeyStatus={sharedKeyStatus}
       />
+
+      <div style={{ padding: '12px 16px', paddingBottom: '0' }}>
+        <KeyLossBanner 
+          show={showKeyLossBanner} 
+          onDismiss={() => setShowKeyLossBanner(false)}
+        />
+      </div>
 
       <div className="flex-1 min-h-0 overflow-y-auto py-4 px-2 bg-gradient-to-b from-sky-25 to-white">
         <MessageList 

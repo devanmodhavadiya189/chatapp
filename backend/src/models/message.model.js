@@ -17,6 +17,11 @@ const messageschema = new mongoose.Schema(
         {
             type:String
         },
+        iv:
+        {
+            type: String,
+            default: null,
+        },
         file:
         {
             url: { type: String },

@@ -1,5 +1,6 @@
 import { Menu, Phone, Video, MoreVertical } from 'lucide-react';
 import { getInitials } from '../../utils/userHelpers';
+import EncryptionStatus from '../crypto/EncryptionStatus';
 
 export default function ChatHeader({ 
   activeUser, 
@@ -7,7 +8,8 @@ export default function ChatHeader({
   setShowMenu, 
   setShowContactInfo, 
   setShowMedia, 
-  onOpenSidebar 
+  onOpenSidebar,
+  sharedKeyStatus
 }) {
   return (
     <div className="bg-white border-b border-sky-200 p-4 flex-shrink-0 sticky top-0 z-20">
@@ -40,6 +42,9 @@ export default function ChatHeader({
             <h3 className="font-semibold text-sky-deep" data-testid="text-active-user-name">
               {activeUser?.fullname}
             </h3>
+            <div style={{ marginTop: '4px' }}>
+              <EncryptionStatus status={sharedKeyStatus} />
+            </div>
           </div>
         </div>
         <div className="flex space-x-2">

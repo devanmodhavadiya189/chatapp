@@ -274,4 +274,40 @@ const checkauth = (req,res)=>{
 
 }
 
-export default { login, logout, signup, updateprofile , checkauth };
+const publishKey = async (req, res) => {
+    try {
+        const { publicKey } = req.body;
+        const userId = req.user._id;
+
+        if (!publicKey || typeof publicKey !== 'string') {
+            return res.status(400).json({
+                message: "Public key is required and must be a string"
+            });
+        }
+
+        if (publicKey.length === 0 || publicKey.length > 10000) {
+            return res.status(400).json({
+                message: "Public key length invalid"
+            });
+        }
+
+        const updatedUser = await user.findByIdAndUpdate(
+            userId,
+            { publicKey },
+            { new: true }
+        ).select("-password");
+
+        res.status(200).json({
+            success: true,
+            message: "Key published",
+            user: updatedUser
+        });
+    } catch (err) {
+        console.log("Error in publishKey controller", err);
+        res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+}
+
+export default { login, logout, signup, updateprofile , checkauth, publishKey };

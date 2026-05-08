@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://chatty-pv9k.onrender.com';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8004';
 const API_BASE = `${API_BASE_URL}/api`;
 
 class ApiClient {
@@ -85,6 +85,13 @@ class ApiClient {
     });
   }
 
+  async publishKey(publicKey) {
+    return this.makeRequest('/auth/publish-key', {
+      method: 'POST',
+      body: JSON.stringify({ publicKey }),
+    });
+  }
+
   async getUsers() {
     return this.makeRequest('/message/users');
   }
@@ -93,10 +100,10 @@ class ApiClient {
     return this.makeRequest(`/message/${userId}`);
   }
 
-  async sendMessage(receiverId, text, file = null) {
+  async sendMessage(receiverId, text, file = null, iv = null) {
     return this.makeRequest(`/message/send/${receiverId}`, {
       method: 'POST',
-      body: JSON.stringify({ text, file }),
+      body: JSON.stringify({ text, file, iv }),
     });
   }
 

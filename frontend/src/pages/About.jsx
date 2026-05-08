@@ -1,5 +1,7 @@
 import { Link } from 'wouter';
 import { ArrowLeft, Mail, Github, Linkedin } from 'lucide-react';
+// import * as LucideIcons from 'lucide-react';
+// console.log(Object.keys(LucideIcons));
 import image1 from '../assets/image1.jpg';
 import ownerImage from '../assets/owner.jpg';
 
